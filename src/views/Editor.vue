@@ -5,9 +5,12 @@
       <el-container>
         <el-aside width="200px">Aside</el-aside>
         <el-main>
-          <div class="" v-for="com in components" :key="com.id">
-            {{ com.name }}
-          </div>
+          <component
+            :is="com.name"
+            v-for="com in components"
+            v-bind="com.props"
+            :key="com.id"
+          ></component>
         </el-main>
         <el-aside width="200px">Aside</el-aside>
       </el-container>
@@ -18,7 +21,11 @@
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '@/store/index'
+import ScText from '@/components/sc-text.vue'
 export default defineComponent({
+  components: {
+    ScText,
+  },
   setup() {
     const store = useStore<GlobalDataProps>()
     const components = computed(() => store.state.editor.components)

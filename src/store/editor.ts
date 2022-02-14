@@ -14,9 +14,13 @@ interface ComponentData {
 }
 
 export const testComponents: ComponentData[] = [
-  { id: uuidv4(), name: 's-text', props: { text: 'hello' } },
-  { id: uuidv4(), name: 's-text', props: { text: 'hello1' } },
-  { id: uuidv4(), name: 's-text', props: { text: 'hello2' } },
+  { id: uuidv4(), name: 'sc-text', props: { text: 'hello' } },
+  { id: uuidv4(), name: 'sc-text', props: { text: 'hello1' } },
+  {
+    id: uuidv4(),
+    name: 'sc-text',
+    props: { text: 'hello2', actionType: 'url', url: 'www.baidu.com' },
+  },
 ]
 
 const editor: Module<EditorProps, GlobalDataProps> = {
