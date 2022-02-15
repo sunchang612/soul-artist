@@ -7,14 +7,14 @@ export interface EditorProps {
   currentElement: string
 }
 
-interface ComponentData {
+export interface ComponentData {
   props: { [key: string]: unknown }
   id: string
   name: string
 }
 
 export const testComponents: ComponentData[] = [
-  { id: uuidv4(), name: 'sc-text', props: { text: 'hello' } },
+  { id: uuidv4(), name: 'sc-text', props: { text: 'hello' , color: 'red'} },
   { id: uuidv4(), name: 'sc-text', props: { text: 'hello1' } },
   {
     id: uuidv4(),
@@ -28,6 +28,19 @@ const editor: Module<EditorProps, GlobalDataProps> = {
     components: testComponents,
     currentElement: '',
   },
+  mutations: {
+    // 保存当前点击的元素Id
+    selectAction(state, currentId: string) {
+      console.log(state, currentId);
+      state.currentElement = currentId
+    }
+  },
+  getters: {
+    // 找到当前的元素
+    getCurrentElement: (state) => {
+      return state.components.find(com => com.id === state.currentElement)
+    }
+  }
 }
 
 export default editor
