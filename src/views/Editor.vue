@@ -3,7 +3,9 @@
     <el-container>
       <el-header>Header</el-header>
       <el-container>
-        <el-aside width="200px">Aside</el-aside>
+        <el-aside width="200px">
+          <editor-menu :list="defaultTextTemplates" @on-add-item="onAddItem"></editor-menu>
+        </el-aside>
         <el-main>
           <editor-wrapper
             :id="com.id"
@@ -32,14 +34,18 @@
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '@/store/index'
-import { ComponentData } from "@/store/editor";
+import { ComponentData } from "@/store/editor"
 
 import ScText from '@/components/sc-text.vue'
 import EditorWrapper from "@/components/editor-wrapper.vue"
+import EditorMenu from "@/components/editor-menu.vue"
+import { defaultTextTemplates } from '@/common/defaultTemplates'
+import { TextComponentProps } from "@/common/defaultProps";
 export default defineComponent({
   components: {
     ScText,
-    EditorWrapper
+    EditorWrapper,
+    EditorMenu
   },
   setup() {
     const store = useStore<GlobalDataProps>()
@@ -48,10 +54,15 @@ export default defineComponent({
     const onSelectAction = (id: string) => {
       store.commit('selectAction', id)
     }
+    const onAddItem = (item: Partial<TextComponentProps>) => {
+      store.commit('setPushComponent', item)
+    }
     return {
       components,
       onSelectAction,
-      currentElement
+      onAddItem,
+      currentElement,
+      defaultTextTemplates
     }
   },
 })

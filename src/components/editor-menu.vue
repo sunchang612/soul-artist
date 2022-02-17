@@ -1,22 +1,26 @@
 <template>
-  <div class="" @click="onSelectItem">
-    <slot></slot>
+  <div class="" v-for="(item, index) in list" :key="index" @click="onSelectItem(item)">
+    <sc-text v-bind="item" :tag="item.tag"></sc-text>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-
+import { defineComponent } from 'vue'
+import ScText from './sc-text.vue'
+import { TextComponentProps } from '@/common/defaultProps'
 export default defineComponent({
   props: {
-    id: {
-      type: String,
+    list: {
+      type: Array,
       required: true
     }
   },
-  emits: ['on-action'],
+  components: {
+    ScText
+  },
+  emits: ['on-add-item'],
   setup(props, context) {
-    const onSelectItem = (id: string) => {
-      context.emit('on-action', id)
+    const onSelectItem = (props: Partial<TextComponentProps>) => {
+      context.emit('on-add-item', props)
     }
     return {
       onSelectItem
