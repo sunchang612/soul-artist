@@ -2,10 +2,10 @@ export const defaultTextTemplates = [
   {
     text: '标题',
     fontSize: '26px',
-    tag: 'h2'
+    tag: 'h2',
   },
   {
-    text: '内容模块'
+    text: '内容模块',
   },
   {
     text: '按钮',
@@ -15,6 +15,6 @@ export const defaultTextTemplates = [
     'border-color': 'blue',
     'border-radius': '0px',
     'border-width': '2px',
-    'text-align': 'center'
-  }
+    'text-align': 'center',
+  },
 ]

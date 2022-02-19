@@ -4,7 +4,10 @@
       <el-header>Header</el-header>
       <el-container>
         <el-aside width="200px">
-          <editor-menu :list="defaultTextTemplates" @on-add-item="onAddItem"></editor-menu>
+          <editor-menu
+            :list="defaultTextTemplates"
+            @on-add-item="onAddItem"
+          ></editor-menu>
         </el-aside>
         <el-main>
           <editor-wrapper
@@ -12,12 +15,10 @@
             v-for="com in components"
             :key="com.id"
             @on-action="onSelectAction"
+            @on-remove="onRemoveComponent"
             :is-action="com.id === (currentElement && currentElement.id)"
           >
-            <component
-              :is="com.name"
-              v-bind="com.props"
-            ></component>
+            <component :is="com.name" v-bind="com.props"></component>
           </editor-wrapper>
         </el-main>
         <el-aside width="200px">
@@ -34,35 +35,41 @@
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '@/store/index'
-import { ComponentData } from "@/store/editor"
+import { ComponentData } from '@/store/editor'
 
 import ScText from '@/components/sc-text.vue'
-import EditorWrapper from "@/components/editor-wrapper.vue"
-import EditorMenu from "@/components/editor-menu.vue"
+import EditorWrapper from '@/components/editor-wrapper.vue'
+import EditorMenu from '@/components/editor-menu.vue'
 import { defaultTextTemplates } from '@/common/defaultTemplates'
-import { TextComponentProps } from "@/common/defaultProps";
+import { TextComponentProps } from '@/common/defaultProps'
 export default defineComponent({
   components: {
     ScText,
     EditorWrapper,
-    EditorMenu
+    EditorMenu,
   },
   setup() {
     const store = useStore<GlobalDataProps>()
     const components = computed(() => store.state.editor.components)
-    const currentElement = computed<ComponentData | null>(() => store.getters.getCurrentElement)
+    const currentElement = computed<ComponentData | null>(
+      () => store.getters.getCurrentElement
+    )
     const onSelectAction = (id: string) => {
       store.commit('selectAction', id)
     }
     const onAddItem = (item: Partial<TextComponentProps>) => {
       store.commit('setPushComponent', item)
     }
+    const onRemoveComponent = (id: string) => {
+      store.commit('removeComponent', id)
+    }
     return {
       components,
       onSelectAction,
       onAddItem,
       currentElement,
-      defaultTextTemplates
+      defaultTextTemplates,
+      onRemoveComponent,
     }
   },
 })

@@ -79,9 +79,7 @@ export const textStylePropNames = without(
   'text'
 )
 
-export const transformToProps = (
-  props: TextComponentProps
-) => {
+export const transformToProps = (props: TextComponentProps) => {
   return mapValues(props, (item) => {
     return {
       type: item.constructor as StringConstructor,

@@ -1,36 +1,50 @@
 <template>
-  <div :class="{'high-action': isAction}" @click="onSelectItem(id)">
+  <div
+    :class="{ 'high-action': isAction }"
+    class="comnponent-item"
+    @click="onSelectItem(id)"
+  >
     <slot></slot>
+    <el-icon @click.stop="onRemoveComponent(id)"><close-bold /></el-icon>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     isAction: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  emits: ['on-action'],
+  emits: ['on-action', 'on-remove'],
   setup(props, context) {
     const onSelectItem = (id: string) => {
       context.emit('on-action', id)
     }
-    return {
-      onSelectItem
+    const onRemoveComponent = (id: string) => {
+      context.emit('on-remove', id)
     }
-  }
+    return {
+      onSelectItem,
+      onRemoveComponent,
+    }
+  },
 })
 </script>
 
 <style lang="less" scoped>
 .high-action {
   border: 1px solid #42b983;
+}
+.comnponent-item:hover {
+  content: 'X';
+  right: 0;
+  top: 0;
 }
 </style>

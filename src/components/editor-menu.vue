@@ -1,5 +1,10 @@
 <template>
-  <div class="" v-for="(item, index) in list" :key="index" @click="onSelectItem(item)">
+  <div
+    class=""
+    v-for="(item, index) in list"
+    :key="index"
+    @click="onSelectItem(item)"
+  >
     <sc-text v-bind="item" :tag="item.tag"></sc-text>
   </div>
 </template>
@@ -11,11 +16,11 @@ export default defineComponent({
   props: {
     list: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    ScText
+    ScText,
   },
   emits: ['on-add-item'],
   setup(props, context) {
@@ -23,8 +28,8 @@ export default defineComponent({
       context.emit('on-add-item', props)
     }
     return {
-      onSelectItem
+      onSelectItem,
     }
-  }
+  },
 })
 </script>
