@@ -7,7 +7,16 @@
         :is="item.component"
         v-model="item.value"
         v-bind="item.extraProps"
-      ></component>
+      >
+        <template v-if="item.options">
+          <component
+            :is="item.subComponent"
+            v-for="(ops, index) in item.options"
+            :key="index"
+            :label="ops.label"
+          ></component>
+        </template>
+      </component>
     </div>
   </div>
 </template>

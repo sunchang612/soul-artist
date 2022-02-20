@@ -9,6 +9,8 @@ export interface PropsToForm {
   value?: string
   lable: string
   extraProps?: { [key: string]: unknown }
+  subComponent?: string // 描述子组件用
+  options?: { [key: string]: any }[] // 组件中的可选项
 }
 
 export type PropsToForms = {
@@ -30,5 +32,21 @@ export const mapPropsToForm: PropsToForms = {
       step: 0.1,
     },
     lable: '行高',
+  },
+  textAlign: {
+    component: 'el-radio-group',
+    lable: '文本位置',
+    subComponent: 'el-radio-button',
+    options: [
+      {
+        label: 'left',
+      },
+      {
+        label: 'center',
+      },
+      {
+        label: 'right',
+      },
+    ],
   },
 }

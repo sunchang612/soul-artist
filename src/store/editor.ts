@@ -24,7 +24,7 @@ export const testComponents: ComponentData[] = [
   {
     id: uuidv4(),
     name: 'sc-text',
-    props: { text: 'hello2' },
+    props: { text: 'hello2', textAlign: 'left' },
   },
 ]
 
