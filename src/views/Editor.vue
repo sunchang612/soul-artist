@@ -21,7 +21,11 @@
             <component :is="com.name" v-bind="com.props"></component>
           </editor-wrapper>
         </el-main>
-        <el-aside width="200px">
+        <el-aside width="320px">
+          <props-form
+            v-if="currentElement"
+            :props="currentElement.props"
+          ></props-form>
           属性
           <pre>
             {{ currentElement && currentElement.props }}
@@ -40,6 +44,7 @@ import { ComponentData } from '@/store/editor'
 import ScText from '@/components/sc-text.vue'
 import EditorWrapper from '@/components/editor-wrapper.vue'
 import EditorMenu from '@/components/editor-menu.vue'
+import PropsForm from '@/components/props-form.vue'
 import { defaultTextTemplates } from '@/common/defaultTemplates'
 import { TextComponentProps } from '@/common/defaultProps'
 export default defineComponent({
@@ -47,10 +52,12 @@ export default defineComponent({
     ScText,
     EditorWrapper,
     EditorMenu,
+    PropsForm,
   },
   setup() {
     const store = useStore<GlobalDataProps>()
     const components = computed(() => store.state.editor.components)
+    console.log('components ---->', components)
     const currentElement = computed<ComponentData | null>(
       () => store.getters.getCurrentElement
     )

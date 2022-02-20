@@ -9,14 +9,18 @@ export interface EditorProps {
 }
 
 export interface ComponentData {
-  props: { [key: string]: unknown }
+  props: Partial<TextComponentProps>
   id: string
   name: string
 }
 
 export const testComponents: ComponentData[] = [
   { id: uuidv4(), name: 'sc-text', props: { text: 'hello', color: 'red' } },
-  { id: uuidv4(), name: 'sc-text', props: { text: 'hello1' } },
+  {
+    id: uuidv4(),
+    name: 'sc-text',
+    props: { text: 'hello1', lineHeight: '1' },
+  },
   {
     id: uuidv4(),
     name: 'sc-text',
