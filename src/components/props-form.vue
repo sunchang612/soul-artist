@@ -42,7 +42,7 @@ export default defineComponent({
           const newKey = key as keyof TextComponentProps
           const item = mapPropsToForm[newKey]
           if (item) {
-            item.value = value
+            item.value = item.transformData ? item.transformData(value) : value
             result[newKey] = item
           }
           return result
