@@ -6,12 +6,14 @@ import { TextComponentProps } from './defaultProps'
 
 export interface PropsToForm {
   component: string
-  value?: string
   lable: string
   extraProps?: { [key: string]: unknown }
   subComponent?: string // 描述子组件用
   options?: { [key: string]: any }[] // 组件中的可选项
-  transformData?: (key: any) => any
+  beforeTransformData?: (key: any) => any
+  afterTransformData?: (key: any) => any
+  valueProp?: string // 自定义组件 value 的名称
+  eventName?: string // 自定义事件名称
 }
 
 export type PropsToForms = {
@@ -21,19 +23,20 @@ export type PropsToForms = {
 export const mapPropsToForm: PropsToForms = {
   text: {
     component: 'el-input',
-    value: 'text',
     lable: '文本内容',
+    eventName: 'input',
   },
   lineHeight: {
     component: 'el-slider',
-    value: '',
     extraProps: {
       min: 0,
       max: 5,
       step: 0.1,
     },
     lable: '行高',
-    transformData: (val) => parseFloat(val),
+    beforeTransformData: (val) => parseFloat(val),
+    afterTransformData: (val) => (val && val.toString()) || '',
+    eventName: 'input',
   },
   textAlign: {
     component: 'el-radio-group',
@@ -50,5 +53,11 @@ export const mapPropsToForm: PropsToForms = {
         label: 'right',
       },
     ],
+    eventName: 'change',
+  },
+  color: {
+    component: 'el-color-picker',
+    lable: '颜色',
+    eventName: 'active-change',
   },
 }

@@ -19,7 +19,7 @@ export const testComponents: ComponentData[] = [
   {
     id: uuidv4(),
     name: 'sc-text',
-    props: { text: 'hello1', lineHeight: '1' },
+    props: { text: 'hello1', lineHeight: '1.2' },
   },
   {
     id: uuidv4(),
@@ -51,6 +51,14 @@ const editor: Module<EditorProps, GlobalDataProps> = {
       state.components = state.components.filter(
         (item) => item.id !== currentId
       )
+    },
+    updateComponent(state, { key, value }) {
+      const findComponent = state.components.find(
+        (com) => com.id === state.currentElement
+      )
+      if (findComponent) {
+        findComponent.props[key as keyof TextComponentProps] = value
+      }
     },
   },
   getters: {

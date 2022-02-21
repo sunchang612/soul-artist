@@ -25,6 +25,7 @@
           <props-form
             v-if="currentElement"
             :props="currentElement.props"
+            @on-change="onChange"
           ></props-form>
           属性
           <pre>
@@ -70,6 +71,10 @@ export default defineComponent({
     const onRemoveComponent = (id: string) => {
       store.commit('removeComponent', id)
     }
+    const onChange = (e: any) => {
+      console.log('change ----->', e)
+      store.commit('updateComponent', e)
+    }
     return {
       components,
       onSelectAction,
@@ -77,6 +82,7 @@ export default defineComponent({
       currentElement,
       defaultTextTemplates,
       onRemoveComponent,
+      onChange,
     }
   },
 })

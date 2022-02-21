@@ -21,7 +21,7 @@ export default defineComponent({
   props: {
     tag: {
       type: String,
-      default: 'dev',
+      default: 'div',
     },
     ...defaultProps,
   },
