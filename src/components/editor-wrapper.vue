@@ -5,7 +5,9 @@
     @click="onSelectItem(id)"
   >
     <slot></slot>
-    <el-icon @click.stop="onRemoveComponent(id)"><close-bold /></el-icon>
+    <el-icon class="remove-icon" @click.stop="onRemoveComponent(id)">
+      <close-bold />
+    </el-icon>
   </div>
 </template>
 <script lang="ts">
@@ -42,9 +44,19 @@ export default defineComponent({
 .high-action {
   border: 1px solid #42b983;
 }
-.comnponent-item:hover {
-  content: 'X';
-  right: 0;
-  top: 0;
+.comnponent-item {
+  position: relative;
+  & .remove-icon {
+    display: none;
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    cursor: pointer;
+  }
+  &:hover {
+    .remove-icon {
+      display: block;
+    }
+  }
 }
 </style>
