@@ -39,7 +39,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
-import { GlobalDataProps } from '@/store/index'
+import { GlobalDataProps } from '@/store'
 import { ComponentData } from '@/store/editor'
 
 import ScText from '@/components/sc-text.vue'
